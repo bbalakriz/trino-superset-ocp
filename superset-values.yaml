@@ -1,0 +1,23 @@
+# -- Specify service account name to be used
+serviceAccountName: superset
+serviceAccount:
+  # -- Create custom service account for Superset. If create: true and serviceAccountName is not provided, `superset.fullname` will be used.
+  create: true
+  name: superset
+  annotations: {}
+
+
+# -- Install additional packages and do any other bootstrap configuration in this script 
+# For production clusters it's recommended to build own image with this step done in CI 
+# @default -- see `values.yaml` 
+
+bootstrapScript: |
+  #!/bin/bash
+  pip install sqlalchemy-trino &&\
+  if [ ! -f ~/bootstrap ]; then echo "Running Superset with uid {{
+  .Values.runAsUser }}" > ~/bootstrap; fi
+
+postgresql:
+
+  serviceAccount:
+    name: superset
