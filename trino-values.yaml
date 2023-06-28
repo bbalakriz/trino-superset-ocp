@@ -1,0 +1,9 @@
+serviceAccount:
+  create: true
+  name: trino-default
+additionalCatalogs:
+  mysql: |-
+    connector.name=mysql
+    connection-url=jdbc:mysql://mysql:3306
+    connection-user=petclinic
+    connection-password=petclinic
